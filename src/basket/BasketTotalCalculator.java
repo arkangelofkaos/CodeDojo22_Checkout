@@ -1,3 +1,7 @@
+package basket;
+
+import item.Item;
+
 import java.util.List;
 
 /**
@@ -5,11 +9,11 @@ import java.util.List;
  */
 public class BasketTotalCalculator {
 
-    public int getTotalPrice(Basket basket) {
+    public long totalPriceOf(Basket basket) {
         List<Item> basketItems = basket.getItems();
 
-        int totalPrice = basketItems.parallelStream()
-                .map(Item::getPrice)
+        long totalPrice = basketItems.parallelStream()
+                .map(item -> item.getPrice())
                 .sum();
 
         return totalPrice;

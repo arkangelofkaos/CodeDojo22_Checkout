@@ -1,3 +1,7 @@
+package basket;
+
+import item.Item;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -6,13 +10,13 @@ import java.util.List;
  */
 public class Basket {
 
-    private final List<Item> items = new LinkedList<Item>();
+    private final List<Item> items = new LinkedList<>();
 
     public void addItem(Item item) {
         items.add(item);
     }
 
     public List<Item> getItems() {
-        return new LinkedList<Item>(items);
+        return new LinkedList<>(items);
     }
 }
