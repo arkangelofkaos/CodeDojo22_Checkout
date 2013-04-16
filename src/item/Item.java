@@ -4,7 +4,7 @@ package item;
  * @author Edward Yue Shung Wong
  */
 public enum Item {
-    APPLE(100L), BANANA(150L), CHERRY(75L);
+    APPLE(100L), BANANA(150L), CHERRY(75L), POMME(100), MELE(100);
 
     private final long price;
 

@@ -1,4 +1,6 @@
 import basket.Basket;
+import discount.AppleDiscountCalculator;
+import discount.BananaDiscountCalculator;
 import discount.CherryDiscountCalculator;
 import item.Item;
 import item.ItemParser;
@@ -50,16 +52,51 @@ public class CheckoutTest {
     @Test
     public void shouldCalculatePriceOfPairsOfCherriesFactoringInDiscount() {
         Basket basket = new Basket();
-        addItemToBasket(basket, "cherry");
-        addItemToBasket(basket, "cherry");
-        addItemToBasket(basket, "cherry");
         Item cherry = addItemToBasket(basket, "cherry");
+
+        int numberOfDiscounts = 2;
+        for (int i = 1; i < CherryDiscountCalculator.NUMBER_OF_CHERRIES_PER_DISCOUNT * numberOfDiscounts; i++) {
+            addItemToBasket(basket, "cherry");
+        }
 
         long price = checkout.calculatePriceOf(basket);
 
         long expectedTotal = (cherry.getPrice() * 4) -
-                (CherryDiscountCalculator.CHERRY_DISCOUNT * CherryDiscountCalculator.NUMBER_OF_CHERRIES_PER_DISCOUNT);
+                (CherryDiscountCalculator.CHERRY_DISCOUNT * numberOfDiscounts);
         assertEquals("checkout total is not the discounted price of cherries", expectedTotal, price);
+    }
+
+    @Test
+    public void shouldCalculatePriceOfPairsOfBananasFactoringInDiscount() {
+        Basket basket = new Basket();
+
+        Item banana = addItemToBasket(basket, "banana");
+
+        int numberOfDiscounts = 2;
+        for (int i = 1; i < BananaDiscountCalculator.NUMBER_OF_BANANAS_PER_DISCOUNT * numberOfDiscounts; i++) {
+            addItemToBasket(basket, "banana");
+        }
+
+        long price = checkout.calculatePriceOf(basket);
+
+        long expectedTotal = (banana.getPrice() * 4) -
+                (BananaDiscountCalculator.BANANA_DISCOUNT * numberOfDiscounts);
+        assertEquals("checkout total is not the discounted price of bananas", expectedTotal, price);
+    }
+
+    @Test
+    public void shouldCalculatePriceOfApplesFactoringInDiscount() {
+        Basket basket = new Basket();
+        addItemToBasket(basket, "pomme");
+        addItemToBasket(basket, "pomme");
+        addItemToBasket(basket, "apple");
+        Item apple = addItemToBasket(basket, "mele");
+
+        long price = checkout.calculatePriceOf(basket);
+
+        long expectedTotal = (apple.getPrice() * 4) -
+                (AppleDiscountCalculator.APPLE_DISCOUNT);
+        assertEquals("checkout total is not the discounted price of apples", expectedTotal, price);
     }
 
 }
